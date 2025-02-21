@@ -1,0 +1,198 @@
+# AdGuard - Google Ads Fraud Prevention System
+
+## Project Overview
+AdGuard is a comprehensive fraud prevention system for Google Ads, designed to protect advertisers from invalid clicks and optimize ad spend.
+
+## Repository Structure
+```
+adguard/
+├── backend/               # Node.js Express backend
+│   ├── src/
+│   │   ├── controllers/  # Request handlers
+│   │   ├── models/       # Database models
+│   │   ├── services/     # Business logic
+│   │   └── utils/        # Helper functions
+├── frontend/             # React dashboard
+│   ├── src/
+│   │   ├── components/   # UI components
+│   │   ├── pages/       # Dashboard pages
+│   │   └── services/    # API integration
+├── database/            # Database migrations & seeds
+└── docs/               # Documentation
+```
+
+## Core Features
+
+### 1. IP Tracking System
+- Real-time IP monitoring
+- Geographic location tracking
+- Click pattern analysis
+- Request rate monitoring
+- VPN/Proxy detection
+
+### 2. Fraud Detection Engine
+- Pattern recognition for suspicious behavior
+- Click velocity monitoring
+- Time-based analysis
+- Geographic anomaly detection
+- Machine learning integration (Phase 2)
+
+### 3. Protection Actions
+- Automatic IP blocking
+- Google Ads exclusion list management
+- Progressive rate limiting
+- Alert system
+- Automated responses
+
+### 4. Dashboard Features
+- Real-time monitoring
+- Analytics & reporting
+- IP management interface
+- Rule configuration
+- Alert management
+- Cost saving metrics
+
+## Technical Stack
+
+### Backend
+- Node.js + Express
+- PostgreSQL (IP and event storage)
+- Redis (rate limiting and caching)
+- Bull (job processing)
+
+### Frontend
+- React + TypeScript
+- Tailwind CSS
+- Recharts (data visualization)
+- React Query (data fetching)
+
+### Infrastructure
+- Docker containers
+- AWS/GCP hosting
+- CloudFlare (DDoS protection)
+- CI/CD pipeline
+
+## API Endpoints
+
+### IP Management
+```
+GET /api/ips                  # List tracked IPs
+POST /api/ips/block          # Block IP
+GET /api/ips/:ip/history     # Get IP history
+```
+
+### Analytics
+```
+GET /api/analytics/overview   # Dashboard overview
+GET /api/analytics/threats    # Threat analysis
+GET /api/analytics/costs      # Cost savings
+```
+
+### Rules Management
+```
+GET /api/rules               # List rules
+POST /api/rules              # Create rule
+PUT /api/rules/:id          # Update rule
+```
+
+## Database Schema
+
+### IPs Table
+```sql
+CREATE TABLE ips (
+    id SERIAL PRIMARY KEY,
+    address VARCHAR(45) NOT NULL,
+    country VARCHAR(2),
+    risk_score FLOAT,
+    is_blocked BOOLEAN DEFAULT false,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+### Events Table
+```sql
+CREATE TABLE events (
+    id SERIAL PRIMARY KEY,
+    ip_id INTEGER REFERENCES ips(id),
+    event_type VARCHAR(50),
+    metadata JSONB,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+## Development Phases
+
+### Phase 1 - Core Infrastructure (2-3 weeks)
+- Basic IP tracking
+- Simple dashboard
+- Database setup
+- Initial API endpoints
+- Basic blocking functionality
+
+### Phase 2 - Enhanced Detection (3-4 weeks)
+- Advanced pattern detection
+- Google Ads API integration
+- Improved dashboard
+- Initial ML models
+- Alert system
+
+### Phase 3 - SaaS Features (4-5 weeks)
+- Multi-tenant support
+- Billing integration
+- User management
+- Advanced analytics
+- Custom rules engine
+
+### Phase 4 - Advanced Features (5-6 weeks)
+- ML model improvements
+- Advanced reporting
+- API access for customers
+- Integration with other ad platforms
+- Mobile app development
+
+## Getting Started
+
+1. Clone the repository
+```bash
+git clone https://github.com/your-org/adguard.git
+cd adguard
+```
+
+2. Install dependencies
+```bash
+# Backend
+cd backend
+npm install
+
+# Frontend
+cd frontend
+npm install
+```
+
+3. Set up environment variables
+```bash
+cp .env.example .env
+# Edit .env with your configurations
+```
+
+4. Start development servers
+```bash
+# Backend
+npm run dev
+
+# Frontend
+npm start
+```
+
+## Contributing
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+MIT License
+
+## Contact
+For support or inquiries, please contact [your-email]
